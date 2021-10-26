@@ -1,0 +1,33 @@
+auth:
+  adminPassword: password
+  adminUser: admin
+## @section Database parameters
+
+## PostgreSQL chart configuration
+## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
+##
+postgresql:
+  ## @param postgresql.enabled Deploy a PostgreSQL server to satisfy the applications database requirements
+  ##
+  enabled: false
+## External database configuration
+##
+externalDatabase:
+  ## @param externalDatabase.host Host of the external database
+  ##
+  host: "keycloak-psql-postgresql.default.svc.cluster.local"
+  ## @param externalDatabase.port Database port
+  ##
+  port: 5432
+  ## @param externalDatabase.user non admin username for Keycloak Database
+  ##
+  user: keycloak
+  ## @param externalDatabase.password Database password
+  ##
+  password: keycloak
+  ## @param externalDatabase.database Database name
+  ##
+  database: keycloak
+  ## @param externalDatabase.existingSecret Use an existing secret file with the external PostgreSQL credentials
+  ##
+  # existingSecret: ""

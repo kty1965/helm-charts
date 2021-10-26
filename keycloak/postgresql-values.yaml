@@ -1,0 +1,28 @@
+## @param postgresqlPostgresPassword PostgreSQL admin password (used when `postgresqlUsername` is not `postgres`, in which case`postgres` is the admin username)
+## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#creating-a-database-user-on-first-run (see note!)
+postgresqlPostgresPassword: ""
+## @param postgresqlUsername PostgreSQL user (has superuser privileges if username is `postgres`)
+## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
+##
+postgresqlUsername: keycloak
+## @param postgresqlPassword PostgreSQL user password
+## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
+##
+postgresqlPassword: "keycloak"
+## @param existingSecret Name of existing secret to use for PostgreSQL passwords
+## The secret has to contain the keys postgresql-password which is the password for postgresqlUsername when it is
+## different of postgres, postgresql-postgres-password which will override postgresqlPassword,
+## postgresql-replication-password which will override replication.password and postgresql-ldap-password which will be
+## used to authenticate on LDAP. The value is evaluated as a template.
+## e.g:
+## existingSecret: secret
+##
+existingSecret: ""
+## @param usePasswordFile Mount PostgreSQL secret as a file instead of passing environment variable
+##
+usePasswordFile: false
+## @param postgresqlDatabase PostgreSQL database
+## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#creating-a-database-on-first-run
+##
+postgresqlDatabase: "keycloak"
+## @param postgresqlDataDir PostgreSQL data dir folder
