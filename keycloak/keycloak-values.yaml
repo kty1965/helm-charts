@@ -31,3 +31,6 @@ externalDatabase:
   ## @param externalDatabase.existingSecret Use an existing secret file with the external PostgreSQL credentials
   ##
   # existingSecret: ""
+
+service:
+  type: ClusterIP
