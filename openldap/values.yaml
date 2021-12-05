@@ -217,15 +217,7 @@ ltb-passwd:
     bindPWKey: LDAP_ADMIN_PASSWORD
 
 phpldapadmin:
-  enabled: false
-  ingress:
-    enabled: true
-    annotations: {}
-    path: /
-    pathType: Prefix
-    ## Ingress Host
-    hosts:
-    - phpldapadmin.example
+  enabled: true
   env:
     PHPLDAPADMIN_LDAP_HOSTS: openldap-openldap-stack-ha
 # TODO make it works

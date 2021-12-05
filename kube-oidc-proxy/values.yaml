@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: quay.io/jetstack/kube-oidc-proxy
+  tag: v0.3.0
+  pullPolicy: IfNotPresent
+
+
+oidc:
+  clientId: kube-oidc-proxy-local
+  issuerUrl: https://localhost:8080/auth/realms/Modusign
+  usernameClaim: sub
+  usernamePrefix: "oidcuser:"
+  groupsClaim: groups
+  groupsPrefix: "oidcgroup:"

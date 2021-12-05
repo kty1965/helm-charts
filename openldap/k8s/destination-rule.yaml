@@ -1,0 +1,7 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: openldap
+  namespace: openldap-system
+spec:
+  host: openldap-openldap-stack-ha.openldap-system.svc.cluster.local
