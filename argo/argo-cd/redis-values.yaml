@@ -1,0 +1,10 @@
+volumePermissions:
+  ## @param volumePermissions.enabled Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup`
+  ##
+  enabled: true
+
+replica:
+  replicaCount: 1
+
+auth:
+  password: "34lpzGs5wk"

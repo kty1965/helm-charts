@@ -8,7 +8,7 @@ image:
 
 oidc:
   clientId: kube-oidc-proxy-local
-  issuerUrl: https://localhost:8080/auth/realms/Modusign
+  issuerUrl: https://localhost:8080/auth/realms/Local
   usernameClaim: sub
   usernamePrefix: "oidcuser:"
   groupsClaim: groups

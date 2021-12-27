@@ -1,0 +1,33 @@
+redis:
+  create: false
+  enabled: false
+externalRedis:
+  ## Redis&trade; host
+  ## @param externalRedis.host External Redis host
+  ##
+  host: "argo-redis-master.argo.svc.cluster.local"
+  ## Redis&trade; port
+  ## @param externalRedis.port External Redis port
+  ##
+  port: 6379
+  ## Redis&trade; password for authentication
+  ## Ignored if existingSecret is set
+  ## @param externalRedis.password External Redis password
+  ##
+  password: "34lpzGs5wk"
+  existingSecret: argo-cd-redis
+
+controller:
+  extraEnvVars:
+    - name: "REDIS_PASSWORD"
+      value: "34lpzGs5wk"
+
+repo-server:
+  extraEnvVars:
+    - name: "REDIS_PASSWORD"
+      value: "34lpzGs5wk"
+
+server:
+  extraEnvVars:
+    - name: "REDIS_PASSWORD"
+      value: "34lpzGs5wk"
