@@ -54,7 +54,7 @@ helm uninstall --namespace argo argo-cd
   Execute the following commands:
 
     ```bash
-      kubectl port-forward --namespace argo svc/argo-cd-server 8080:80 &
+      kubectl port-forward --namespace argo svc/argo-cd-server 8080:80
       export URL=http://127.0.0.1:8080/
       echo "Argo CD URL: http://127.0.0.1:8080/"
     ```
@@ -65,3 +65,15 @@ helm uninstall --namespace argo argo-cd
      echo "Username: \"admin\""
      echo "Password: $(kubectl -n argo get secret argocd-secret -o jsonpath="{.data.clearPassword}" | base64 -d)"
    ```
+
+## AppProject Initialize
+
+```bash
+argocd login localhost:8080
+argocd proj create test -d https://kubernetes.default.svc,test -s https://github.com/argoproj/argocd-example-apps.git
+argocd proj allow-cluster-resource test '' Namespace
+argocd proj allow-namespace-resource test 'apps' Deployment
+argocd proj allow-namespace-resource test 'apps' StatefulSet
+argocd proj role create test read-only
+argocd proj role add-policy test read-only  -a get -o '*'
+```
