@@ -26,6 +26,5 @@ minikube start
 ```bash
 minikube addons list
 minikube addons enable metrics-server
-minikube dashboard
+minikube addons enable dashboard
 ```
-
