@@ -24,8 +24,10 @@ minikube start
 ### addon
 
 ```bash
-minikube addons list
 minikube addons enable metrics-server
+minikube addons enable storage-provisioner
+minikube addons enable volumesnapshots
+minikube addons enable default-storageclass
+minikube addons enable csi-hostpath-driver
 minikube dashboard
 ```
-

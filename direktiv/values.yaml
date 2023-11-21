@@ -1,0 +1,13 @@
+database:
+  # -- database host
+  host: "direktiv-cluster-primary.postgres-system.svc.cluster.local"
+  # -- database port
+  port: 5432
+  # -- database user
+  user: "direktiv"
+  # -- database password
+  password: "SYF(GRs^_LNYQaH<owqo=yb{"
+  # -- database name, auto created if it does not exist
+  name: "direktiv"
+  # -- sslmode for database
+  sslmode: require
