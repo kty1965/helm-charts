@@ -1,3 +1,5 @@
+debug: false
+
 database:
   # -- database host
   host: "direktiv-cluster-primary.postgres-system.svc.cluster.local"
@@ -11,3 +13,7 @@ database:
   name: "direktiv"
   # -- sslmode for database
   sslmode: require
+
+functions:
+  namespace: direktiv-functions
+  ingressClass: contour.ingress.networking.knative.dev

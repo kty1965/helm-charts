@@ -116,15 +116,38 @@ EOF
 ### Knative
 
 ```bash
-kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.9.4/operator.yaml
-kubectl create ns knative-serving
-kubectl apply -f https://raw.githubusercontent.com/direktiv/direktiv/main/kubernetes/install/knative/basic.yaml
+kubectl create ns knative-system
+kubectl create namespace knative-serving
+kubectl create namespace knative-eventing
+kubectl apply -f knative/operator-v1.9.6.yaml # above 1.10 versiob, need to kubernetes v1.26+
+kubectl apply -f contour/net-contour-v1.9.3.yaml
+kubectl apply -f knative/serving-v1.9.6.yaml
+# kubectl delete namespace contour-external
 ```
 
 ### Direktiv
 
 ```bash
 kubectl create namespace direktiv-system
+kubectl label namespace direktiv-system
 helm install -f values.yaml -n direktiv-system direktiv direktiv/direktiv
 ```
 
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dnsutils
+  namespace: direktiv-system
+spec:
+  containers:
+  - name: dnsutils
+    image: registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3
+    command:
+      - sleep
+      - "infinity"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+EOF
+```
