@@ -12,7 +12,6 @@ spec:
     - name: direktiv
       databases:
         - direktiv
-      password: "SYF(GRs^_LNYQaH<owqo=yb{"
     - name: postgres
 
   image: perconalab/percona-postgresql-operator:main-ppg14-postgres

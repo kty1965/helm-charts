@@ -8,7 +8,7 @@ database:
   # -- database user
   user: "direktiv"
   # -- database password
-  password: "SYF(GRs^_LNYQaH<owqo=yb{"
+  password: "?^-B,X}R_*9-zR@d;U?1(NK="
   # -- database name, auto created if it does not exist
   name: "direktiv"
   # -- sslmode for database

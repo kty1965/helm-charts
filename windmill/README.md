@@ -1,19 +1,21 @@
-# Direktiv
+# Windmill
 
 ## Installation
 
-### Direktiv Minikube cluster setup
+### provisioning minikube
 
 ```bash
-minikube start --memory=4096 --cpus=2 --disk-size=30g --kubernetes-version=v1.25.14 --nodes 3 --profile direktiv
-minikube addons enable -p direktiv metrics-server
-minikube addons disable -p direktiv storage-provisioner
-minikube addons disable -p direktiv default-storageclass
-# minikube addons disalbe -p direktiv volumesnapshots
-# minikube addons disalbe -p direktiv csi-hostpath-driver
-# kubectl patch storageclass csi-hostpath-sc -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+minikube start --memory=4096 --cpus=2 --disk-size=30g --kubernetes-version=v1.25.14 --nodes 3 --profile windmill
+minikube addons enable -p windmill metrics-server
+minikube addons disable -p windmill storage-provisioner
+minikube addons disable -p windmill default-storageclass
+minikube addons enable -p windmill ingress
+# minikube addons disalbe -p windmill volumesnapshots
+# minikube addons disalbe -p windmill csi-hostpath-driver
 minikube dashboard
 ```
+
+install host provisoner
 
 ```bash
 cat <<EOF | kubectl apply -f -
@@ -111,52 +113,12 @@ spec:
 EOF
 ```
 
-### Database(Postgres)
+### helm
 
 ```bash
-kubectl create namespace postgres-system
-helm repo add percona https://percona.github.io/percona-helm-charts/
-helm install -n postgres-system pg-operator percona/pg-operator --wait
-kubectl apply -f postgres/standalone.yaml
-# pg cluster 로 부터 만들어진 user password 를 Direktiv values.yaml에 넣어야 함
-kubectl get secrets -n postgres-system direktiv-cluster-pguser-direktiv -o 'go-template={{index .data "password"}}' | base64 --decode
+helm repo add windmill https://windmill-labs.github.io/windmill-helm-charts/
+helm install windmill-chart windmill/windmill  \
+      --namespace=windmill-system             \
+      --create-namespace
 ```
 
-### Knative
-
-```bash
-kubectl create ns knative-system
-kubectl create namespace knative-serving
-kubectl create namespace knative-eventing
-kubectl apply -f knative/operator-v1.9.6.yaml # above 1.10 versiob, need to kubernetes v1.26+
-kubectl apply -f contour/net-contour-v1.9.3.yaml
-kubectl apply -f knative/serving-v1.9.6.yaml
-# kubectl delete namespace contour-external
-```
-
-### Direktiv
-
-```bash
-kubectl create namespace direktiv-system
-# pg cluster 로 부터 만들어진 user password 를 Direktiv values.yaml에 넣어야 함
-helm install -f values.yaml -n direktiv-system direktiv direktiv/direktiv
-```
-
-```bash
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dnsutils
-  namespace: direktiv-system
-spec:
-  containers:
-  - name: dnsutils
-    image: registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3
-    command:
-      - sleep
-      - "infinity"
-    imagePullPolicy: IfNotPresent
-  restartPolicy: Always
-EOF
-```
